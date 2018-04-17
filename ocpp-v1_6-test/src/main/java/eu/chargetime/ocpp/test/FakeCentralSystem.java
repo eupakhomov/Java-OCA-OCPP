@@ -130,6 +130,10 @@ public class FakeCentralSystem {
         return dummyHandlers.wasLatestConfirmation(FirmwareStatusNotificationConfirmation.class);
     }
 
+    public boolean hasReceivedUpdateFirmwareConfirmation() {
+        return dummyHandlers.wasLatestConfirmation(UpdateFirmwareConfirmation.class);
+    }
+
     public boolean hasReceivedChangeAvailabilityConfirmation(String status) {
         boolean result = false;
         ChangeAvailabilityConfirmation confirmation = dummyHandlers.getReceivedConfirmation(new ChangeAvailabilityConfirmation());
@@ -240,6 +244,11 @@ public class FakeCentralSystem {
 
     public void sendFirmwareStatusNotificationRequest(FirmwareStatus status) throws Exception {
         FirmwareStatusNotificationRequest request = new FirmwareStatusNotificationRequest(status);
+        send(request);
+    }
+
+    public void sendUpdateFirmwareRequest(String location, Calendar retrieveDate) throws Exception {
+        UpdateFirmwareRequest request = new UpdateFirmwareRequest(location, retrieveDate);
         send(request);
     }
 
